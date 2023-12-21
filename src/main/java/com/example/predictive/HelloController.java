@@ -20,7 +20,7 @@ public class HelloController {
     fileChooser.setInitialDirectory(new File(System.getProperty("user.dir")));
     File file = fileChooser.showOpenDialog(new Stage());
     BufferedImage img = Predict.loadImage(Paths.get(file.getAbsolutePath()));
-    Predict.ImageArr3D quantized = Predict.getDifference(img);
+    Predict.ImageArr3D quantized = Predict.getQuantizedDiff(img);
     Predict.compressToFile(quantized);
   }
   @FXML
@@ -30,8 +30,8 @@ public class HelloController {
     // Set the initial directory to the current directory
     fileChooser.setInitialDirectory(new File(System.getProperty("user.dir")));
     File file = fileChooser.showOpenDialog(new Stage());
-    Predict.ImageArr3D _QuantizedFromFile = Predict.loadQuantizedDiff(file.getAbsolutePath());
-    BufferedImage predicted = Predict.decompressImage(_QuantizedFromFile);
-    Predict.saveImage(Paths.get("decode.bmp"), predicted, "bmp");
+    Decompress.ImageArr3D _QuantizedFromFile = Decompress.loadQuantizedDiff(file.getAbsolutePath());
+    BufferedImage predicted = Decompress.decompressImage(_QuantizedFromFile);
+    Decompress.saveImage(Paths.get("decode.bmp"), predicted, "bmp");
   }
 }
